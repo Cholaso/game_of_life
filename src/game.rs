@@ -14,6 +14,7 @@ impl Game{
     }
 
     pub async fn game_loop(&mut self) {
+        self.grid.initialize_cells();
         self.grid.test();
         loop {
             self.grid.update();

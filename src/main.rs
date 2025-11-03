@@ -6,7 +6,7 @@ mod constants;
 mod game;
 mod grid;
 
-use constants::{WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE};
+use constants::{WINDOW_WIDTH, WINDOW_HEIGHT};
     
 fn window_conf() -> Conf {
     let icon: Icon = icon::load_icon("data/icon.png");
