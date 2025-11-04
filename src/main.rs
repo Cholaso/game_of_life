@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 use macroquad::prelude::*;
 use crate::miniquad::conf::Icon;
 
@@ -20,7 +22,7 @@ fn window_conf() -> Conf {
     }
 }
 
-#[macroquad::main(window_conf)]
+#[macroquad::main(window_conf, windows_subsystem = "windows")]
 async fn main() {
     let mut game = game::Game::new(WINDOW_WIDTH, WINDOW_HEIGHT);
     game.game_loop().await;
