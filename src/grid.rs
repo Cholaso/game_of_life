@@ -1,5 +1,4 @@
 use crate::constants::{CELL_SIZE};
-use macroquad::prelude::*;
 
 #[derive(Copy, Clone)]
 pub struct Cell {
@@ -56,7 +55,7 @@ impl Grid {
 
     pub fn update(&mut self) {
 
-        let now = macroquad::time::get_time();
+        let now: f64 = macroquad::time::get_time();
 
         if now - self.last_update < 0.75 {
             return;
@@ -64,10 +63,11 @@ impl Grid {
 
         self.last_update = now;
 
-        let old_cells = self.cells.clone(); // clone the grid for reading
+        let old_cells: Vec<Vec<Cell>> = self.cells.clone(); // clone the grid for reading
+
         for (y, row) in self.cells.iter_mut().enumerate() {
             for (x, cell) in row.iter_mut().enumerate() {
-                let mut live_neighbors = 0;
+                let mut live_neighbors: i32 = 0;
 
                 for ny in y.saturating_sub(1)..=(y + 1).min(old_cells.len() - 1) {
                     for nx in x.saturating_sub(1)..=(x + 1).min(old_cells[0].len() - 1) {
@@ -92,19 +92,13 @@ impl Grid {
         }
     }
 
-
-    pub fn draw(&self) {
-        for (y, row) in self.cells.iter().enumerate() {
-            for (x, cell) in row.iter().enumerate() {
-                let color: Color = if cell.alive { BLACK } else { WHITE };
-                draw_rectangle(
-                    (x * self.cell_size) as f32,
-                    (y * self.cell_size) as f32,
-                    self.cell_size as f32,
-                    self.cell_size as f32,
-                    color,
-                );
-            }
+    pub fn update_cell_state(&mut self, x: usize, y: usize) {
+        if y < self.cells.len() && x < self.cells[0].len() {
+            self.cells[y][x].alive = !self.cells[y][x].alive;
         }
+    }
+
+    pub fn cells(&self) -> &Vec<Vec<Cell>> {
+        &self.cells
     }
 }
