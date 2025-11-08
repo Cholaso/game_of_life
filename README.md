@@ -7,7 +7,7 @@
 
 ## About
 
-This is a Windows, Linux, and browser-compatible implementation of Conway's Game of Life using Rust and Macroquad.  
+This is a Windows implementation of Conway's Game of Life using Rust and Macroquad.  
 Conway's Game of Life is a cellular automaton where cells live, die, or reproduce based on simple rules:
 
 1. Any live cell with two or three live neighbors survives.
