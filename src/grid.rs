@@ -12,15 +12,16 @@ pub struct Grid {
     pub cell_size: usize,
     cells: Vec<Vec<Cell>>,
     last_update: f64,
+    speed: f64,
 }
 
 impl Grid {
-    // constructor
     pub fn new(width: usize, height: usize) -> Self {
         Self {
             cell_size: CELL_SIZE,
             cells: vec![vec![Cell { alive: false, next_state: false, x: 0, y: 0 }; width / CELL_SIZE]; height / CELL_SIZE],
             last_update: 0.0,
+            speed: 1.0,
         }
     }
 
@@ -37,27 +38,11 @@ impl Grid {
         }
     }
 
-    pub fn test(&mut self){
-        let mut counter: usize = 0;
-        for row in &mut self.cells {
-            for cell in row {
-                *cell = Cell {
-                    alive: counter % 2 == 0,
-                    next_state: false,
-                    x: cell.x,
-                    y: cell.y,
-                };
-                counter += 1;
-            }
-            counter += 1;
-        }
-    }
-
     pub fn update(&mut self) {
 
         let now: f64 = macroquad::time::get_time();
 
-        if now - self.last_update < 0.75 {
+        if now - self.last_update < (1.0 / self.speed) {
             return;
         }
 
@@ -100,5 +85,8 @@ impl Grid {
 
     pub fn cells(&self) -> &Vec<Vec<Cell>> {
         &self.cells
+    }
+    pub fn set_speed(&mut self, speed: u8) {
+        self.speed = speed as f64;
     }
 }

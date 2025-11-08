@@ -7,6 +7,7 @@ mod icon;
 mod constants;
 mod game;
 mod grid;
+mod ui;
 
 use constants::{WINDOW_WIDTH, WINDOW_HEIGHT};
     
